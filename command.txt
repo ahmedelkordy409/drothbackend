@@ -1,0 +1,96 @@
+
++ to run node server once
+
+   >> npm start
+
+
++ to run node dev models
+
+   >> npm run dev
+
+
+
+       "start:env": "node --require dotenv/config dist/server",
+       "start:server:env": "node --require dotenv/config dist/server",
+
+
+
+
+
+
+server driver https://koajs.com/ , https://express.com
+
+
+
+
+
+importan article for realworled App https://medium.com/swlh/node-js-app-in-the-real-world-what-they-never-really-tell-you-a-5-part-series-24a3225d9d9a
+
+
+
+https://drone.io/
+
+
+npm install --save bcrypt bluebird body-parser cors dotenv express helmet jwt-simple moment morgan nodemon rethinkdb
+https://medium.com/@brucelim/creating-a-rest-api-with-rethinkdb-nodejs-express-81ed12f01e59
+
+
+https://jestjs.io/
+///iota.com
+https://www.cypress.io/
+
+https://jenkins.io/
+
+
+
+
+
+
+
+
+
+
+
+
+//// for security
+https://medium.com/swlh/jwt-authentication-authorization-in-nodejs-express-mongodb-rest-apis-2019-ad14ec818122
+
+http://proficientblog.com/microservices-security/
+
+https://www.npmjs.com/package/geoip-lite
+
+https://www.npmjs.com/package/express-ip
+
+https://gist.github.com/qiao/1626318
+
+
+
+
+
+
+
+
+Authorization && authentication methods:
+
+1- JWT
+2- oauth server
+3- openid
+
+
+
+
+
+github
+
+…or create a new repository on the command line
+echo "# mynodeapis" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/ahmedelkordy409/mynodeapis.git
+git push -u origin master
+…or push an existing repository from the command line
+git remote add origin https://github.com/ahmedelkordy409/mynodeapis.git
+git push -u origin master
+…or import code from another repository
+You can initialize this repository with code from a Subversion, Mercurial, or TFS project.

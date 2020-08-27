@@ -1,0 +1,28 @@
+{
+
+"_id" : "    rooom id" ,
+"owner": "id for who create the room  super admin",
+"family": [
+  {
+    "_id" : "",
+    "role": " "
+    "isAprove": true,
+    "timestamp": "",
+  },
+],
+"specialist": [
+  {
+    "_id" : "",
+    "role": " "
+    "isAprove": true,
+    "timestamp": "",
+  },
+],
+"room_metadata":[
+
+
+
+],
+"timestamp" : "created AT && updated AT",
+"_v"  : " "
+}
