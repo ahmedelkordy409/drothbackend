@@ -62,7 +62,8 @@ let AuthService = class AuthService {
                 console.log('salt genrated sassfullt', salt);
                 const hashedPassword = yield argon2.hash(userInputDTO.password, { salt });
                 console.log('password hashing sucssfully :', hashedPassword);
-                const userRecord = yield user_model_1.default.create(Object.assign(Object.assign({}, userInputDTO), { salt: salt.toString('hex'), password: hashedPassword }));
+                const saltVar = salt.toString('hex');
+                const userRecord = yield user_model_1.default.create(Object.assign(Object.assign({}, userInputDTO), { salt: saltVar, password: hashedPassword }));
                 console.log('new user creation sucssfully:', userRecord);
                 if (!userRecord) {
                     throw new Error('User cannot be created');

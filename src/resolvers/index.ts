@@ -1,8 +1,14 @@
 import { userResolvers } from './user.resolvers';
+import { workspaceResolvers } from './workspace.resolvers';
+import { workspaceUserResolvers } from './workspaceuser.resolvers';
+import { orgnizationResolvers } from './orgnization.resolvers';
 import { calendarResolvers } from './calendar.resolvers';
-import { roomResolvers } from './room.resolvers';
-import { roomStudentResolvers } from './roomstudent.resolvers';
 
 
-
-export const resolvers = [userResolvers, calendarResolvers, roomResolvers,roomStudentResolvers];
+export const resolvers = [
+  userResolvers,
+  workspaceResolvers,
+  workspaceUserResolvers,
+  orgnizationResolvers,
+  calendarResolvers,
+];

@@ -20,14 +20,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const roomStudentSchema = new mongoose_1.Schema({
-    student: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Person' },
-    room: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Room' },
-    isApproved: {
-        type: Boolean,
-        default: false
-    },
-    AuthorizeKey: String,
+const roomUserSchema = new mongoose_1.Schema({
+    /*
+     *acsses control
+    */
+    role: String,
+    primission: [String],
+    /*
+     *control variables
+    */
+    jointAt: String,
+    //jointAt: String;
+    leaveAt: String,
+    isDeleted: Boolean,
+    /*
+     * relationship
+    */
+    rooms: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Room' },
+    user: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }]
 });
-exports.default = mongoose_1.default.model('RoomStudent', roomStudentSchema);
-//# sourceMappingURL=roomuser.model.js.map
+exports.default = mongoose_1.default.model('RoomUser', roomUserSchema);
+//# sourceMappingURL=roomUser.model.js.map

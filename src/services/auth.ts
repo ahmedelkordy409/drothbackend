@@ -1,27 +1,22 @@
+'use strict';
 import { Service } from 'typedi';
-import jwt from 'jsonwebtoken';
-//import config from '../config';
-import UserModel from '../models/user.model';
+import * as jwt from 'jsonwebtoken';
 
 import * as argon2 from 'argon2';
 import { randomBytes } from 'crypto';
+
 import { IUser, IUserInputDTO } from '../interfaces/IUser';
+import UserModel from '../models/user.model';
 
 /*
-* https://dev.to/gokayokyay/api-authentication-workflow-with-jwt-and-refresh-tokens-5312
-*
-*
-*
-**/
-
-
-
-
-
+ * https://dev.to/gokayokyay/api-authentication-workflow-with-jwt-and-refresh-tokens-5312
+ *
+ *
+ *
+ **/
 
 @Service()
 export default class AuthService {
-  //constructor(@Inject('userModel') private userModel: Models.UserModel) {}
   constructor() {}
 
   public async SignUp(
@@ -34,11 +29,18 @@ export default class AuthService {
       const hashedPassword = await argon2.hash(userInputDTO.password, { salt });
       console.log('password hashing sucssfully :', hashedPassword);
 
-      const userRecord = await UserModel.create({
+      const saltVar = salt.toString('hex');
+
+      ///const hashPassword = new PasswordHashing(userInputDTO.password);
+
+      const input = {
         ...userInputDTO,
-        salt: salt.toString('hex'),
-        password: hashedPassword,
-      });
+        salt: saltVar, //hashPassword.saltString
+        password: hashedPassword, //hashPassword.hashedPassword
+      };
+      console.log('input sucssfully :', input);
+
+      const userRecord = await UserModel.create(input);
       console.log('new user creation sucssfully:', userRecord);
 
       if (!userRecord) {
@@ -74,10 +76,10 @@ export default class AuthService {
      */
     console.log('userRecord is work', userRecord.password);
 
-    const pass: string = userRecord.password.toString();
-    console.log('hashed Password', pass);
+    const userPassword: any = userRecord.password; /*.toString()*/
+    console.log('hashed Password', userPassword);
 
-    const validPassword = await argon2.verify(pass, password);
+    const validPassword = await argon2.verify(userPassword, password);
     console.log('validPassword is work', validPassword);
 
     if (validPassword) {
@@ -111,12 +113,12 @@ export default class AuthService {
     token: string
   ): Promise<{ user: IUser; isLogin: Boolean }> {
     try {
-      const tokenVerify = jwt.verify(token, 'jghj5s5df4sd5f46s5df4sd5f');
-    //  console.log('++ tokenVerify work :', tokenVerify);
+      const tokenVerify = <any>jwt.verify(token, 'jghj5s5df4sd5f46s5df4sd5f');
+      //  console.log('++ tokenVerify work :', tokenVerify);
       const userRecord = await UserModel.findOne({
         _id: tokenVerify._id.toString(),
       });
-    //  console.log('+++ userRecord work :', userRecord);
+      //  console.log('+++ userRecord work :', userRecord);
 
       if (!userRecord) {
         throw new Error('User not registered');
@@ -161,24 +163,5 @@ export default class AuthService {
       //config.jwtSecret
       'jghj5s5df4sd5f46s5df4sd5f'
     );
-  }
-
-  private async createSession(user: any) {
-    try {
-      const token = this.generateToken(user);
-      console.log('+++token generate sucssfully:', token);
-
-      const idString = user._id.toString();
-      const sessionAdd = await UserModel.updateOne(
-        { _id: idString },
-        { token: token }
-      );
-
-      console.log('++++ sessionAdd sucssfully:', sessionAdd);
-
-      return sessionAdd;
-    } catch (e) {
-      throw e;
-    }
   }
 }

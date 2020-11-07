@@ -1,0 +1,31 @@
+"data":{
+   "user":{
+      "id":"4bb476f16112a2bfd12d1acdc294a172",
+      "email":"ahmedelkordy409@gmail.com",
+      "username":"ahmedelkordy409",
+      "first_name":null,
+      "last_name":null,
+      "telephone":null,
+      "country":null,
+      "zipcode":null,
+      "two_factor_authentication_enabled":false,
+      "two_factor_authentication_locked":false,
+      "created_on":"2017-07-26T07:33:14.218364Z",
+      "modified_on":"2020-03-05T21:31:22.252820Z",
+      "organizations":[
+
+      ],
+      "has_pro_zones":false,
+      "has_business_zones":false,
+      "has_enterprise_zones":false,
+      "suspended":false,
+      "betas":[
+         "api_tokens_beta"
+      ],
+      "email_verified":true,
+      "has_completed_2fa_recovery_setup":false,
+      "totp_configured":false,
+      "webauthn_configured":false
+   },
+   "security_token":"MTYwMzQ3NDk0MUNFVTV2T1BnWG9sNUFMbHZOajZoZDd0RmJoSXFabDU5"
+}

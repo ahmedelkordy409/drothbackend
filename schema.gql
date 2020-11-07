@@ -20,6 +20,23 @@
 
 
 
+         #addCourseContents():Content
+         #addCourseProviders(programId: String):Tag
+         #addCourseMeta(programId: String):Tag
+         #addTag(programId:  ID!, tagId: ID!):Tag
+
+         #updateCourseContents():Content
+         #updateCourseProviders(programId: String):Tag
+         #updateCourseMeta(programId: String):Tag
+         #updateTag(programId:  ID!, tagId: ID!):Tag
+
+         #updateCourseContents():Content
+         #updateCourseProviders(programId: String):Tag
+         #updateCourseMeta(programId: String):Tag
+         #updateTag(programId:  ID!, tagId: ID!):Tag
+
+
+
 
 
 

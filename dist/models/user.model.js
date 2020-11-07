@@ -26,7 +26,8 @@ const userSchema = new mongoose_1.Schema({
     password: { type: String, required: true, minLength: 7 },
     //  who create rooms {teacher role }
     rooms: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Room' }],
-    payments: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Payments' }],
+    // univirsy that teacher work on
+    // payments: [{ type: Schema.Types.ObjectId, ref: 'Payments' }],
     email_verified: { type: Boolean, default: false },
     is_profile_complete: { type: Boolean, default: false },
     last_ip: { type: String },
@@ -49,7 +50,12 @@ const userSchema = new mongoose_1.Schema({
     },
     role: {
         type: String,
-        default: 'user',
+        enum: [
+            'manager',
+            'specilst',
+            'family'
+        ],
+        default: "family"
     },
     /*
       logins_count:	'integer',

@@ -24,7 +24,7 @@ const server = new apollo_server_express_1.ApolloServer({
     context: ({ req }) => {
         // get the user token from the headers
         try {
-            const token = req.headers.authorization.replace('Bearer ', '') || '';
+            const token = req.headers.authorization || '';
             console.log(token);
             if (token) {
                 const authServiceInstance = typedi_1.Container.get(auth_1.default);

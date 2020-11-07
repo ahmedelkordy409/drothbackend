@@ -17,8 +17,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typedi_1 = require("typedi");
+const room_model_1 = __importDefault(require("../models/room.model"));
+const roomuser_model_1 = __importDefault(require("../models/roomuser.model"));
+const user_model_1 = __importDefault(require("../models/user.model"));
 // const rooms: IRoomStudent[] = [];
 let RoomService = class RoomService {
     constructor() { }
@@ -30,13 +36,34 @@ let RoomService = class RoomService {
      * @ param
      *
      ******************************************************/
-    JoinStudent() {
+    JoinStudent(studentId, roomId) {
         return __awaiter(this, void 0, void 0, function* () {
+            const findRoom = yield room_model_1.default.findOne({ _id: roomId });
+            if (!findRoom) {
+                throw new Error('THERE_IS_NO_ROOM');
+            }
+            console.log('2-: we foun room');
             // 1- check if he already in the room
+            const findStudent = yield user_model_1.default.findOne({ _id: studentId });
             // 2 - if user already in this room && return "you are allready in this room"
+            const isRoomStudent = findStudent.rooms.includes(roomId);
+            console.log('3-: isRoomStudent', isRoomStudent);
+            if (isRoomStudent) {
+                throw new Error("YOU_ARE_ALREADY");
+            }
+            console.log("3-: we foun Student");
             // 3- else record new student to the room
+            const newStudent = yield roomuser_model_1.default.create({
+                student: studentId,
+                room: roomId,
+                isApproved: false,
+            });
+            findRoom.students.push(newStudent._id);
+            const addStudent = yield findRoom.save();
+            findStudent.rooms.push(roomId);
+            const addRoom = yield findStudent.save();
             // 4- return data
-            return;
+            return newStudent;
         });
     }
     /*****************************************************

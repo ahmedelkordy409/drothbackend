@@ -20,15 +20,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
-const roomSchema = new mongoose_1.Schema({
+const courseSchema = new mongoose_1.Schema({
     tittle: String,
     cover: String,
+    image: String,
+    intro: String,
     description: String,
-    // room user management
-    teacher: { type: mongoose_1.Schema.Types.ObjectId, ref: 'User' },
-    students: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'RoomStudent' }],
-    // room controll
+    slug: String,
+    rate: {
+        type: Number,
+        min: 0,
+        max: 5,
+        default: 0,
+    },
+    instructors: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'User' }],
+    // course controll
     isDeleted: { type: Boolean, default: false },
 });
-exports.default = mongoose_1.default.model('Room', roomSchema);
+exports.default = mongoose_1.default.model('Room', courseSchema);
 //# sourceMappingURL=room.model.js.map

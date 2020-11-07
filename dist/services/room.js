@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -22,46 +22,31 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const typedi_1 = require("typedi");
-const room_model_1 = __importDefault(require("../models/room.model"));
+const course_model_1 = __importDefault(require("../models/course.model"));
 const user_model_1 = __importDefault(require("../models/user.model"));
-const rooms = [];
-const data = {
-    _id: 'id for room ',
-    teacher: 'id for teacher room ',
-    tittle: 'String',
-    cover: 'String',
-    description: 'String',
-    students: [
-        {
-            _id: 'user._id',
-            name: 'ahmed elkordy',
-            avatar: 'wwww.google.com/user.png',
-            isApproved: false,
-        },
-    ],
-};
-let RoomService = class RoomService {
+let CourseService = class CourseService {
     constructor() { }
     /*****************************************************
-     * to create new event as session sheudling
-     * Insert into session calendar
+     *  to create new event as session sheudling
+     *  Insert into session calendar
      *
-     * @ primision
-     * @ param
+     *  @ primision
+     *  @ param
      *
      ******************************************************/
-    CreateRoom(roomInputDTO) {
+    CreateCourse(courseInputDTO, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             // get user id from token (from user who store in AWS rediasDB)
-            const newRoom = yield room_model_1.default.create(roomInputDTO);
-            console.log('room create +++', newRoom);
-            const teacherId = newRoom.teacher.toString();
-            console.log('room create +++', teacherId);
-            const find = yield user_model_1.default.findOne({ _id: teacherId });
-            find.rooms.push(newRoom._id);
-            const updated = yield find.save();
+            const newCourse = yield course_model_1.default.create(Object.assign({}, courseInputDTO));
+            console.log('room create +++', newCourse);
+            const instructorId = newCourse.instructors.toString();
+            console.log('room create +++', instructorId);
+            /*const findInstructor = await UserModel.findOne({ _id: instructorId });
+            findInstructor.course.push(newCourse._id);
+            const updated = await findInstructor.save();
             console.log('room +++++ ++++ +++', updated);
-            return newRoom;
+            */
+            return newCourse;
         });
     }
     /*****************************************************
@@ -72,18 +57,34 @@ let RoomService = class RoomService {
      * @ param
      *
      ******************************************************/
-    GetRooms(teacherId) {
+    GetCourseByTag(tag) {
         return __awaiter(this, void 0, void 0, function* () {
             // get user id from token (from user who store in AWS rediasDB)
-            const userRooms = yield user_model_1.default.findOne({ _id: teacherId }).populate('rooms');
-            console.log("الحمد لله ", userRooms);
+            const userRooms = yield user_model_1.default.findOne({ _id: tag }).populate('courses');
+            console.log('الحمد لله ', userRooms);
+            return userRooms;
+        });
+    }
+    /*****************************************************
+     * to create new event as session sheudling
+     * Insert into session calendar
+     *
+     * @ primision
+     * @ param
+     *
+     ******************************************************/
+    GetCourseBySubject(subject) {
+        return __awaiter(this, void 0, void 0, function* () {
+            // get user id from token (from user who store in AWS rediasDB)
+            const userRooms = yield user_model_1.default.findOne({ _id: subject }).populate('courses');
+            console.log('الحمد لله ', userRooms);
             return userRooms;
         });
     }
 };
-RoomService = __decorate([
+CourseService = __decorate([
     typedi_1.Service(),
     __metadata("design:paramtypes", [])
-], RoomService);
-exports.default = RoomService;
-//# sourceMappingURL=room.js.map
+], CourseService);
+exports.default = CourseService;
+//# sourceMappingURL=Room.js.map
